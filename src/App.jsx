@@ -12,6 +12,10 @@ import { GlbGenerator } from './GlbGenerator'
 function App() {
   const [count, setCount] = useState(0)
   const glb = new GlbGenerator()
+  setTimeout(() => {
+    glb.generateGlb()
+  }, 125)
+  
 
   function viewerLoaded() {
     console.log('loaded!')
@@ -20,7 +24,7 @@ function App() {
   return (
     <div className="App">
       <div>
-        <model-viewer alt="Neil Armstrong's Spacesuit from the Smithsonian Digitization Programs Office and National Air and Space Museum" src="" ar shadow-intensity="1" camera-controls touch-action="pan-y" onError={() => viewerLoaded()}></model-viewer>
+        <model-viewer alt="Neil Armstrong's Spacesuit from the Smithsonian Digitization Programs Office and National Air and Space Museum" src="" ar shadow-intensity="1" camera-controls touch-action="pan-y"></model-viewer>
       </div>
       <h1>PS:D!</h1>
       <div className="card">
