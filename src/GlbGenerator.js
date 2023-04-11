@@ -24,33 +24,57 @@ class GlbGenerator {
       side: THREE.DoubleSide,
     });
 
-    const CostaSurface = (u, v, target) => {
-      u = u * 2 * Math.PI;
-      v = v * Math.PI;
-      const pi = Math.PI;
-      const cosu = Math.cos(u);
-      const sinu = Math.sin(u);
-      const cosv = Math.cos(v);
-      const sinv = Math.sin(v);
-      const cos2v = Math.cos(2 * v);
-      const sin2v = Math.sin(2 * v);
+    function enneper(r, t, target) {
+      let k = 4; //number of petals -1
+      let radius = 4.5; //how far along the enneper radius (how big, how much curvature)
 
-      const x =
-        cosu * sinv * sinv -
-        (cos2v * cosu * sinu) / 2 -
-        (sin2v * sinu * sinu) / 2;
-      const y =
-        sinu * sinv * sinv +
-        (cos2v * sinu * cosu) / 2 -
-        (sin2v * cosu * cosu) / 2;
-      const z = cosv * sinv - cos2v / 2;
+      let delta = 1; //max radius allowed for each exponent (trials and errors)...
+      let magnification;
 
-      target.set(x, y, z);
-    };
+      let sin = Math.sin;
+      let cos = Math.cos;
+      let pi = Math.PI;
+      switch (k) {
+        case 1:
+          delta = (3 * 3.04) / 5;
+          magnification = 1000;
+          break;
+        case 2:
+          delta = (2.25 * 3.4) / 5;
+          magnification = 1400;
+          break;
+        case 3:
+          delta = (1.88 * 3.72) / 5;
+          magnification = 1500;
+          break;
+        case 4:
+          delta = (1.7 * 3.92) / 5;
+          magnification = 1500;
+          break;
+        default:
+          delta = (1.56 * 4.2) / 5;
+          magnification = 1500;
+      }
+      r = ((r * radius) / 5) * delta;
+      t = 2 * pi * t;
+      var x, y, z;
+      x =
+        (1 / 2) *
+        (r * cos(t) -
+          (Math.pow(r, 2 * k + 1) / (2 * k + 1)) * cos((2 * k + 1) * t));
+      y =
+        (-1 / 2) *
+        (r * sin(t) +
+          (Math.pow(r, 2 * k + 1) / (2 * k + 1)) * sin((2 * k + 1) * t));
+      z = (Math.pow(r, k + 1) / (k + 1)) * cos((k + 1) * t);
 
-    const geometry = new ParametricGeometry(CostaSurface, 100, 100);
-    const mesh = new THREE.Mesh(geometry, mat);
+      target.set(y, z, x);
+    }
 
+    //
+    //const mob = new ParametricGeometry(ParametricGeometries.mobius3d, 48, 48);
+    const enn = new ParametricGeometry(enneper, 20, 200);
+    const mesh = new THREE.Mesh(enn, mat);
     this.scene.add(mesh);
 
     //set glb property for model viewer to pick up
