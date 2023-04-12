@@ -2,12 +2,12 @@ import * as THREE from "three";
 import { ParametricGeometry } from "three/examples/jsm/geometries/ParametricGeometry";
 import { ParametricGeometries } from "three/examples/jsm/geometries/ParametricGeometries";
 import { GLTFExporter } from "three/examples/jsm/exporters/GLTFExporter";
+import { Helper } from "./Helper";
 
 class GlbGenerator {
   constructor() {
     this.scene = new THREE.Scene();
-
-    //this.generateGlb()
+    this.helper = new Helper();
   }
 
   generateGlb() {
@@ -24,9 +24,13 @@ class GlbGenerator {
       side: THREE.DoubleSide,
     });
 
+    const help = this.helper;
+    let k = Math.round(help.map(Math.random(), 0, 1, 1, 4)); //number of petals -1
+    let radius = Math.round(help.map(Math.random(), 0, 1, 3.5, 4.5)); //how far along the enneper radius (how big, how much curvature)
+
     function enneper(r, t, target) {
-      let k = 4; //number of petals -1
-      let radius = 4.5; //how far along the enneper radius (how big, how much curvature)
+      //let k = 1;
+      //let radius = 4.4;
 
       let delta = 1; //max radius allowed for each exponent (trials and errors)...
       let magnification;
@@ -74,6 +78,7 @@ class GlbGenerator {
     //
     //const mob = new ParametricGeometry(ParametricGeometries.mobius3d, 48, 48);
     const enn = new ParametricGeometry(enneper, 20, 200);
+    console.log(enn);
     const mesh = new THREE.Mesh(enn, mat);
     this.scene.add(mesh);
 
