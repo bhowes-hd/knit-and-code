@@ -23,10 +23,12 @@ class GlbGenerator {
       flatShading: true,
       side: THREE.DoubleSide,
     });
+    mat.DoubleSide = true;
 
+    //random values for enneper surface generation.
     const help = this.helper;
-    let k = Math.round(help.map(Math.random(), 0, 1, 1, 4)); //number of petals -1
-    let radius = Math.round(help.map(Math.random(), 0, 1, 3.5, 4.5)); //how far along the enneper radius (how big, how much curvature)
+    let k = Math.round(help.map(Math.random(), 0, 1, 1, 3)); //number of petals -1
+    let radius = Math.round(help.map(Math.random(), 0, 1, 3.8, 4.5)); //how far along the enneper radius (how big, how much curvature)
 
     function enneper(r, t, target) {
       //let k = 1;
@@ -75,12 +77,53 @@ class GlbGenerator {
       target.set(y, z, x);
     }
 
-    //
-    //const mob = new ParametricGeometry(ParametricGeometries.mobius3d, 48, 48);
-    const enn = new ParametricGeometry(enneper, 20, 200);
-    console.log(enn);
-    const mesh = new THREE.Mesh(enn, mat);
-    this.scene.add(mesh);
+    //driving surface for
+    const u = 19;
+    const v = 199;
+    const enn = new ParametricGeometry(enneper, u, v);
+    //console.log(enn);
+
+    //loop over the positions in the buffer geometry and make curves
+    const arr = enn.attributes.position.array;
+    for (let i = 0; i < arr.length; i = i + (u + 1) * 3) {
+      //start point
+      const startIndex = i + ((u + 1) * 3) / 5;
+      const start = new THREE.Vector3(
+        arr[startIndex],
+        arr[startIndex + 1],
+        arr[startIndex + 2]
+      );
+
+      //mid point
+      const midIndex = i + ((u + 1) * 3) / 2;
+      const mid = new THREE.Vector3(
+        arr[midIndex],
+        arr[midIndex + 1],
+        arr[midIndex + 2]
+      );
+
+      //end point
+      const endIndex = i + u * 3;
+      const end = new THREE.Vector3(
+        arr[endIndex],
+        arr[endIndex + 1],
+        arr[endIndex + 2]
+      );
+
+      //pipes
+      const crv = new THREE.CatmullRomCurve3([start, mid, end]);
+      const pip = new THREE.TubeGeometry(
+        crv,
+        100,
+        help.map(Math.random(), 0, 1, 0.001, 0.01),
+        6
+      );
+      const mesh = new THREE.Mesh(pip, mat);
+      this.scene.add(mesh);
+    }
+
+    //const mesh = new THREE.Mesh(enn, mat);
+    //this.scene.add(mesh);
 
     //set glb property for model viewer to pick up
 
