@@ -27,7 +27,7 @@ class GlbGenerator {
 
     //random values for enneper surface generation.
     const help = this.helper;
-    let k = Math.round(help.map(Math.random(), 0, 1, 1, 3)); //number of petals -1
+    let k = Math.round(help.map(Math.random(), 0, 1, 1, 2)); //number of petals -1
     let radius = Math.round(help.map(Math.random(), 0, 1, 3.8, 4.5)); //how far along the enneper radius (how big, how much curvature)
 
     function enneper(r, t, target) {
@@ -77,11 +77,18 @@ class GlbGenerator {
       target.set(y, z, x);
     }
 
-    //driving surface for
+    //driving surface for fibers
     const u = 19;
-    const v = 199;
+    //const v = 99;
+    let v = Math.round(help.map(Math.random(), 0, 1, 100, 200));
+    if (v % 2 == 0) {
+      v = v - 1;
+    }
     const enn = new ParametricGeometry(enneper, u, v);
-    //console.log(enn);
+
+    //constants to key in the loop
+    const midShifter = Math.round(help.map(Math.random(), 0, 1, -2, 2));
+    //console.log(midShifter);
 
     //loop over the positions in the buffer geometry and make curves
     const arr = enn.attributes.position.array;
@@ -95,11 +102,15 @@ class GlbGenerator {
       );
 
       //mid point
-      const midIndex = i + ((u + 1) * 3) / 2;
+      let shift = midShifter * (v + 1) * 3;
+      let midIndex = i + ((u + 1) * 3) / 2;
+      midIndex = Math.round(midIndex + shift);
+
+      //if the shifted value is less than 0 or greater than the array length, wrap it
       const mid = new THREE.Vector3(
-        arr[midIndex],
-        arr[midIndex + 1],
-        arr[midIndex + 2]
+        help.wrapArrayIndex(arr, midIndex),
+        help.wrapArrayIndex(arr, midIndex + 1),
+        help.wrapArrayIndex(arr, midIndex + 2)
       );
 
       //end point

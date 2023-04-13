@@ -13,6 +13,11 @@ class Helper {
       ((n - start1) / (stop1 - start1)) * (stop2 - start2) + start2;
     return newval;
   }
+
+  //wrapped array index
+  wrapArrayIndex(arr, index) {
+    return arr[((index % arr.length) + arr.length) % arr.length];
+  }
 }
 
 export { Helper };
