@@ -1,6 +1,5 @@
 import * as THREE from "three";
 import { ParametricGeometry } from "three/examples/jsm/geometries/ParametricGeometry";
-import { ParametricGeometries } from "three/examples/jsm/geometries/ParametricGeometries";
 import { GLTFExporter } from "three/examples/jsm/exporters/GLTFExporter";
 import { Helper } from "./Helper";
 

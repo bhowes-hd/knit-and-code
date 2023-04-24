@@ -1,9 +1,9 @@
 {
-  "name": "psd-poc",
+  "name": "knit-and-code",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "homepage": "http://bhowes-hd.github.io/psd-poc-01",
+  "homepage": "http://bhowes-hd.github.io/knit-and-code",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -14,7 +14,10 @@
     "@google/model-viewer": "^3.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "three": "^0.149.0"
+    "three": "^0.149.0",
+    "d3": "7.8.4",
+    "d3-color": "3.1.0",
+    "d3-scale-chromatic": "3.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
