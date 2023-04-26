@@ -15,6 +15,15 @@ class GlbGenerator {
     //clear scene and add mesh
     this.scene.remove.apply(this.scene, this.scene.children);
 
+    //color scale for fibers
+    const scale = this.helper.randomColorScale();
+
+    //materials for fibers
+    const materials = this.helper.createMaterials(scale, 10);
+
+    //create a set of curves
+    const curves = [];
+
     //create a mesh & add it to the scene
 
     const mat = new THREE.MeshStandardMaterial({
@@ -131,16 +140,21 @@ class GlbGenerator {
 
       //pipes
       const crv = new THREE.CatmullRomCurve3([start, mid, end]);
-      const pip = new THREE.TubeGeometry(
-        crv,
-        100,
-        help.map(Math.random(), 0, 1, 0.001, 0.01),
-        6
-      );
-      const mesh = new THREE.Mesh(pip, mat);
-      this.scene.add(mesh);
+      curves.push(crv);
     }
 
+    //segment the curves, make tubes, assign materials, add to scene
+    for (let i = 0; i < curves.length; i++) {
+      const crvs = this.helper.breakCurve(curves[i], 20);
+      const tubes = this.helper.createTubes(
+        crvs,
+        this.helper.map(Math.random(), 0, 1, 0.001, 0.01)
+      );
+      const meshes = this.helper.randomMaterialize(tubes, materials);
+      meshes.map((mesh) => {
+        this.scene.add(mesh);
+      });
+    }
     //const mesh = new THREE.Mesh(enn, mat);
     //this.scene.add(mesh);
 
