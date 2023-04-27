@@ -145,7 +145,10 @@ class GlbGenerator {
 
     //segment the curves, make tubes, assign materials, add to scene
     for (let i = 0; i < curves.length; i++) {
-      const crvs = this.helper.breakCurve(curves[i], 20);
+      const crvs = this.helper.breakCurve(
+        curves[i],
+        this.helper.map(Math.random(), 0, 1, 10, 20)
+      );
       const tubes = this.helper.createTubes(
         crvs,
         this.helper.map(Math.random(), 0, 1, 0.001, 0.01)

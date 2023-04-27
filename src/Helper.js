@@ -35,7 +35,7 @@ class Helper {
     while (stepper < 100) {
       const start = stepper;
       stepper = stepper + Math.ceil(this.map(Math.random(), 0, 1, 1, segments));
-      const end = stepper;
+      const end = stepper + 1;
       if (end >= 100) {
         break;
       }
@@ -50,7 +50,7 @@ class Helper {
   createTubes(curves, radius) {
     const arr = [];
     for (let i = 0; i < curves.length; i++) {
-      const tube = new THREE.TubeGeometry(curves[i], 10, radius, 6, false);
+      const tube = new THREE.TubeGeometry(curves[i], 10, radius, 8, false);
       arr.push(tube);
     }
     return arr;
@@ -71,14 +71,14 @@ class Helper {
   createMaterials(scale, n) {
     const arr = [];
     for (let i = 0; i < n; i++) {
-      const color = scale(i / n);
+      const color = scale(this.map(i / n, 0, 1, 0.44, 1.0));
 
       const mat = new THREE.MeshStandardMaterial({
         color: color,
-        roughness: 0.5,
-        metalness: 0.5,
+        roughness: 0.8,
+        //metalness: 0.5,
         side: THREE.DoubleSide,
-        flatShading: true,
+        flatShading: false,
       });
       mat.DoubleSide = true;
       arr.push(mat);
