@@ -19,7 +19,9 @@ class GlbGenerator {
     const scale = this.helper.randomColorScale();
 
     //materials for fibers
-    const materials = this.helper.createMaterials(scale, 10);
+    const lower = this.helper.map(Math.random(), 0, 1, 0.0, 0.4);
+    const upper = this.helper.map(Math.random(), 0, 1, 0.6, 1.0);
+    const materials = this.helper.createMaterials2(scale, 10, lower, upper);
 
     //create a set of curves
     const curves = [];

@@ -1,9 +1,11 @@
 import * as THREE from "three";
 import {
-  interpolatePuRd,
-  interpolateGreens,
-  interpolateGreys,
-  interpolateOranges,
+  //interpolateRdPu,
+  //interpolateBuGn,
+  //interpolateGreys,
+  //interpolateYlOrBr,
+  interpolateViridis,
+  interpolateMagma,
 } from "d3-scale-chromatic";
 
 class Helper {
@@ -58,12 +60,7 @@ class Helper {
 
   //randomly choose a d3 color scale from a static list of scales
   randomColorScale() {
-    const arr = [
-      interpolatePuRd,
-      interpolateGreens,
-      interpolateGreys,
-      interpolateOranges,
-    ];
+    const arr = [interpolateMagma, interpolateViridis];
     return this.wrapArrayIndex(arr, Math.floor(Math.random() * arr.length));
   }
 
@@ -72,6 +69,26 @@ class Helper {
     const arr = [];
     for (let i = 0; i < n; i++) {
       const color = scale(this.map(i / n, 0, 1, 0.44, 1.0));
+
+      const mat = new THREE.MeshStandardMaterial({
+        color: color,
+        roughness: 0.8,
+        //metalness: 0.5,
+        side: THREE.DoubleSide,
+        flatShading: false,
+      });
+      mat.DoubleSide = true;
+      arr.push(mat);
+    }
+    return arr;
+  }
+
+  //create an array of threejs meshstandardmaterials using n evenly spaced colors from a d3 color scale
+  //include args for upper and lower bounds of the color scale
+  createMaterials2(scale, n, lower, upper) {
+    const arr = [];
+    for (let i = 0; i < n; i++) {
+      const color = scale(this.map(i / n, 0, 1, lower, upper));
 
       const mat = new THREE.MeshStandardMaterial({
         color: color,
