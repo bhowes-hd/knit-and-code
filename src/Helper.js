@@ -68,12 +68,12 @@ class Helper {
   createMaterials(scale, n) {
     const arr = [];
     for (let i = 0; i < n; i++) {
-      const color = scale(this.map(i / n, 0, 1, 0.44, 1.0));
+      const color = scale(this.map(i / n, 0, 1, 0.15, 0.85));
 
       const mat = new THREE.MeshStandardMaterial({
         color: color,
         roughness: 0.8,
-        //metalness: 0.5,
+        metalness: 0.5,
         side: THREE.DoubleSide,
         flatShading: false,
       });
