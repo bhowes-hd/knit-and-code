@@ -6,7 +6,9 @@ import { GlbGenerator } from "./GlbGenerator";
 
 function App() {
   const glb = new GlbGenerator();
+  let modelViewer;
   setTimeout(() => {
+    modelViewer = document.querySelector("model-viewer");
     glb.generateGlb();
   }, 125);
 
@@ -17,23 +19,53 @@ function App() {
   return (
     <div className="App">
       <h1>KNIT + CODE</h1>
+      <p className="read-the-docs">Generative Mixed Reality App</p>
       <div>
         <model-viewer
           alt="Google Model Viewer"
           src=""
           ar
-          shadow-intensity="1"
+          shadow-intensity="1.5"
+          shadow-softness="0.8"
+          exposure="0.7"
+          arScale="3.0"
           camera-controls
           touch-action="pan-y"
-        ></model-viewer>
+        >
+          <button
+            slot="ar-button"
+            onClick={() => {
+              if (modelViewer.canActivateAR) {
+                modelViewer.activateAR();
+              }
+            }}
+          >
+            mixed reality view
+          </button>
+        </model-viewer>
       </div>
-
-      <div className="card">
-        <button onClick={() => glb.generateGlb()}>
-          generate new iteration
-        </button>
+      <br></br>
+      <div>
+        <span className="card">
+          <button
+            onClick={() => {
+              if (modelViewer.canActivateAR) {
+                modelViewer.activateAR();
+              } else {
+                //console.log("only on AR enabled devices");
+              }
+            }}
+          >
+            mixed reality view
+          </button>
+        </span>
+        <span className="card">
+          <button onClick={() => glb.generateGlb()}>
+            generate new iteration
+          </button>
+        </span>
       </div>
-
+      <br></br>
       <p className="read-the-docs">
         Knit + Code is a mixed reality installation blending digital and
         physical experiences into an immersive spectacle. At its core is a
