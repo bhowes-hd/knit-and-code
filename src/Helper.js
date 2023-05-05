@@ -4,7 +4,7 @@ import {
   //interpolateBuGn,
   //interpolateGreys,
   //interpolateYlOrBr,
-  interpolateViridis,
+  //interpolateViridis,
   interpolateMagma,
 } from "d3-scale-chromatic";
 
@@ -60,7 +60,7 @@ class Helper {
 
   //randomly choose a d3 color scale from a static list of scales
   randomColorScale() {
-    const arr = [interpolateMagma, interpolateViridis];
+    const arr = [interpolateMagma];
     return this.wrapArrayIndex(arr, Math.floor(Math.random() * arr.length));
   }
 
