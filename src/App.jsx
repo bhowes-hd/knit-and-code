@@ -28,12 +28,17 @@ function App() {
           shadow-intensity="1.5"
           shadow-softness="0.8"
           exposure="0.7"
-          arScale="3.0"
           camera-controls
           touch-action="pan-y"
+          style={{ justifyContent: "center" }}
         >
           <button
             slot="ar-button"
+            style={{
+              position: "absolute",
+              bottom: "6px",
+              transform: "translateX(-50%)",
+            }}
             onClick={() => {
               if (modelViewer.canActivateAR) {
                 modelViewer.activateAR();
@@ -46,41 +51,21 @@ function App() {
       </div>
       <br></br>
       <div>
-        <span className="card">
-          <button
-            onClick={() => {
-              if (modelViewer.canActivateAR) {
-                modelViewer.activateAR();
-              } else {
-                //console.log("only on AR enabled devices");
-              }
-            }}
-          >
-            mixed reality view
-          </button>
-        </span>
-        <span className="card">
-          <button onClick={() => glb.generateGlb()}>
-            generate new iteration
-          </button>
-        </span>
+        <button onClick={() => glb.generateGlb()}>
+          generate new iteration
+        </button>
       </div>
       <br></br>
       <p className="read-the-docs">
-        Knit + Code is a mixed reality installation blending digital and
-        physical experiences into an immersive spectacle. At its core is a
-        minimal 3D-knit textile dynamically lit with a range of slowly changing
-        lights. This physical form creates a canvas for a digital mixed reality
-        experience: Viewers scan a QR code below the sculpture to launch into
-        the digital space, where a custom algorithm generates multi-colored
-        fibrous models that extend beyond the confines of the physical
-        structure. Knit + Code blurs the boundaries of digital fabrication and
-        spatial design, inviting viewers to explore the space in new ways.
+        Use the buttons above to generate new digital models, and to view a
+        model in mixed reality mode on AR-enabled devices.
       </p>
+      <br></br>
       <p className="read-the-docs">
         Knit + Code is an interdisciplinary design collaboration made possible
-        by the Pratt Institute School of Design. It was designed and made in
-        Brooklyn NY for the Pratt Shows 2023: Design show.
+        by the Pratt Institute School of Design. It was designed and fabricated
+        in Brooklyn, NY for Pratt Shows 2023: Design by a team of Pratt faculty
+        and students.
       </p>
       <br></br>
       <h3>Design Team</h3>
@@ -96,6 +81,18 @@ function App() {
         <p className="team-member">Emma Winick</p>
         <p className="team-member">Joanne Wu</p>
       </div>
+      <br></br>
+      <p className="read-the-docs">
+        Knit + Code is a mixed reality installation blending digital and
+        physical experiences into an immersive spectacle. At its core is a
+        minimal 3D-knit textile dynamically lit with a range of slowly changing
+        lights. This physical form creates a canvas for a digital mixed reality
+        experience: Viewers scan a QR code below the sculpture to launch into
+        the digital space, where a custom algorithm generates multi-colored
+        fibrous models that extend beyond the confines of the physical
+        structure. Knit + Code blurs the boundaries of digital fabrication and
+        spatial design, inviting viewers to explore the space in new ways.
+      </p>
     </div>
   );
 }
