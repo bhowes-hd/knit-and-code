@@ -7,9 +7,12 @@ import {
   //interpolateViridis,
   interpolateMagma,
 } from "d3-scale-chromatic";
+import wall from "./assets/wall.jpg";
 
 class Helper {
-  constructor() {}
+  constructor() {
+    this.wallTexture = new THREE.TextureLoader().load(wall);
+  }
 
   //pass a value between 0 and 1, and get a mapped value back between low and high args
   map1(value, low, high) {
@@ -96,6 +99,9 @@ class Helper {
         //metalness: 0.5,
         side: THREE.DoubleSide,
         flatShading: false,
+        map: this.wallTexture,
+        bumpMap: this.wallTexture,
+        bumpScale: 1.0,
       });
       mat.DoubleSide = true;
       arr.push(mat);
