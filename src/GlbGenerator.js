@@ -19,8 +19,8 @@ class GlbGenerator {
     const scale = this.helper.randomColorScale();
 
     //materials for fibers
-    const lower = this.helper.map(Math.random(), 0, 1, 0.0, 0.4);
-    const upper = this.helper.map(Math.random(), 0, 1, 0.6, 1.0);
+    const lower = this.helper.map(Math.random(), 0, 1, 0.1, 0.4);
+    const upper = this.helper.map(Math.random(), 0, 1, 0.6, 0.9);
     const materials = this.helper.createMaterials2(scale, 10, lower, upper);
 
     //create a set of curves
@@ -84,16 +84,17 @@ class GlbGenerator {
           (Math.pow(r, 2 * k + 1) / (2 * k + 1)) * sin((2 * k + 1) * t));
       z = (Math.pow(r, k + 1) / (k + 1)) * cos((k + 1) * t);
 
-      target.set(y, z, x);
+      target.set(y * 4, z * 4, x * 4);
     }
 
     //driving surface for fibers
     const u = 49;
     let v = 99;
-    //let v = Math.round(help.map(Math.random(), 0, 1, 100, 200));
+    //let v = Math.round(help.map(Math.random(), 0, 1, 100, 120));
     if (v % 2 == 0) {
       v = v - 1;
     }
+    console.log("v", v);
     const enn = new ParametricGeometry(enneper, u, v);
 
     //constants to key in the loop
@@ -153,7 +154,7 @@ class GlbGenerator {
       );
       const tubes = this.helper.createTubes(
         crvs,
-        this.helper.map(Math.random(), 0, 1, 0.001, 0.01)
+        this.helper.map(Math.random(), 0, 1, 0.004, 0.04)
       );
       const meshes = this.helper.randomMaterialize(tubes, materials);
       meshes.map((mesh) => {
