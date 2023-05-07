@@ -26,20 +26,15 @@ class GlbGenerator {
     //create a set of curves
     const curves = [];
 
-    //create a mesh & add it to the scene
-
-    const mat = new THREE.MeshStandardMaterial({
-      color: new THREE.Color(0.88, 0.88, 0.88),
-      flatShading: true,
-      side: THREE.DoubleSide,
-    });
-    mat.DoubleSide = true;
-
     //random values for enneper surface generation.
     const help = this.helper;
     let k = Math.round(help.map(Math.random(), 0, 1, 1, 2)); //number of petals -1
     let radius = Math.round(help.map(Math.random(), 0, 1, 3.8, 4.5)); //how far along the enneper radius (how big, how much curvature)
 
+    //scale up for AR in show mode vs testing at home mode
+    const arScale = 4.4;
+
+    //enneper surface generation function
     function enneper(r, t, target) {
       //let k = 1;
       //let radius = 4.4;
@@ -84,7 +79,7 @@ class GlbGenerator {
           (Math.pow(r, 2 * k + 1) / (2 * k + 1)) * sin((2 * k + 1) * t));
       z = (Math.pow(r, k + 1) / (k + 1)) * cos((k + 1) * t);
 
-      target.set(y * 4, z * 4, x * 4);
+      target.set(y * arScale, z * arScale, x * arScale);
     }
 
     //driving surface for fibers
@@ -94,7 +89,7 @@ class GlbGenerator {
     if (v % 2 == 0) {
       v = v - 1;
     }
-    console.log("v", v);
+    //console.log("v", v);
     const enn = new ParametricGeometry(enneper, u, v);
 
     //constants to key in the loop
@@ -154,7 +149,7 @@ class GlbGenerator {
       );
       const tubes = this.helper.createTubes(
         crvs,
-        this.helper.map(Math.random(), 0, 1, 0.004, 0.04)
+        this.helper.map(Math.random(), 0, 1, 0.001 * arScale, 0.01 * arScale)
       );
       const meshes = this.helper.randomMaterialize(tubes, materials);
       meshes.map((mesh) => {
