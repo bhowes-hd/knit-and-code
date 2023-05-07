@@ -85,7 +85,7 @@ class GlbGenerator {
     //driving surface for fibers
     const u = 49;
     let v = 99;
-    //let v = Math.round(help.map(Math.random(), 0, 1, 100, 120));
+    //let v = Math.round(help.map(Math.random(), 0, 1, 100, 160));
     if (v % 2 == 0) {
       v = v - 1;
     }
@@ -93,48 +93,45 @@ class GlbGenerator {
     const enn = new ParametricGeometry(enneper, u, v);
 
     //constants to key in the loop
+    //how far does the mipdpoint shift from the center of the curve?
     const midShifter = Math.round(help.map(Math.random(), 0, 1, -3, 3));
-    //const midShifter = 0;
-    //console.log(midShifter);
+    //array of vectors to store the points
+    const points = [];
+    const enneperPositionBuffer = enn.attributes.position.array;
+    for (let i = 0; i < enneperPositionBuffer.length; i = i + 3) {
+      points.push(
+        new THREE.Vector3(
+          enneperPositionBuffer[i],
+          enneperPositionBuffer[i + 1],
+          enneperPositionBuffer[i + 2]
+        )
+      );
+    }
 
     //loop over the positions in the buffer geometry and make curves
     const arr = enn.attributes.position.array;
-    for (let i = 0; i < arr.length; i = i + (u + 1) * 3) {
+    for (let i = 0; i < points.length; i = i + (u + 1)) {
       //start point
-      const startIndex = Math.round(i + (u + 1) * 3 * 0.2);
+      const startIndex = Math.round(i + (u + 1) * 0.2);
       // console.log("i", i);
-      // console.log("i/3", i / 3);
       // console.log("start index", startIndex);
-      // console.log("start index/3", startIndex / 3);
-      const start = new THREE.Vector3(
-        arr[startIndex],
-        arr[startIndex + 1],
-        arr[startIndex + 2]
-      );
+      const start = points[startIndex];
 
       //mid point
-      let shift = midShifter * (v + 1) * 3;
-      let midIndex = i + (u + 1) * 3 * 0.6;
+      let shift = midShifter * (v + 1);
+      let midIndex = i + (u + 1) * 0.6;
       midIndex = Math.round(midIndex + shift);
       // console.log("mid index", midIndex);
-      // console.log("mid index/3", midIndex / 3);
+      // console.log("mid index/3", midIndex / 3)
 
       //if the shifted value is less than 0 or greater than the array length, wrap it
-      const mid = new THREE.Vector3(
-        help.wrapArrayIndex(arr, midIndex),
-        help.wrapArrayIndex(arr, midIndex + 1),
-        help.wrapArrayIndex(arr, midIndex + 2)
-      );
+      const mid = help.wrapArrayIndex(points, midIndex);
 
       //end point
-      const endIndex = i + u * 3;
+      const endIndex = i + u;
       // console.log("endIndex", endIndex);
       // console.log("endIndex/3", endIndex / 3);
-      const end = new THREE.Vector3(
-        arr[endIndex],
-        arr[endIndex + 1],
-        arr[endIndex + 2]
-      );
+      const end = points[endIndex];
 
       //pipes
       const crv = new THREE.CatmullRomCurve3([start, mid, end]);
@@ -156,11 +153,8 @@ class GlbGenerator {
         this.scene.add(mesh);
       });
     }
-    //const mesh = new THREE.Mesh(enn, mat);
-    //this.scene.add(mesh);
 
     //set glb property for model viewer to pick up
-
     const gltfX = new GLTFExporter();
     gltfX.parse(
       this.scene,
