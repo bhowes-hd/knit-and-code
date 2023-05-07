@@ -10,7 +10,7 @@ function App() {
   setTimeout(() => {
     modelViewer = document.querySelector("model-viewer");
     glb.generateGlb();
-  }, 125);
+  }, 750);
 
   function viewerLoaded() {
     console.log("loaded!");
@@ -19,7 +19,7 @@ function App() {
   return (
     <div className="App">
       <h1>KNIT + CODE</h1>
-      <p className="read-the-docs">Generative Mixed Reality App</p>
+      <p className="read-the-docs">Augmentented Reality App</p>
       <div>
         <model-viewer
           alt="Google Model Viewer"
@@ -27,7 +27,7 @@ function App() {
           ar
           shadow-intensity="1.5"
           shadow-softness="0.8"
-          exposure="0.7"
+          exposure="0.5"
           camera-controls
           touch-action="pan-y"
           style={{ justifyContent: "center" }}
@@ -45,20 +45,18 @@ function App() {
               }
             }}
           >
-            mixed reality view
+            view in your space
           </button>
         </model-viewer>
       </div>
       <br></br>
       <div>
-        <button onClick={() => glb.generateGlb()}>
-          generate new iteration
-        </button>
+        <button onClick={() => glb.generateGlb()}>generate new 3d model</button>
       </div>
       <br></br>
       <p className="read-the-docs">
-        Use the buttons above to generate new digital models, and to view a
-        model in mixed reality mode on AR-enabled devices.
+        Use the buttons above to generate new 3d models, and to view a model in
+        augmented reality mode on AR-enabled devices.
       </p>
       <br></br>
       <p className="read-the-docs">
