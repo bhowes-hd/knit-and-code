@@ -56,21 +56,48 @@ function App() {
       <br></br>
       <p className="read-the-docs">
         Use the buttons above to generate new 3d models, and to view a model in
-        augmented reality mode on AR-enabled devices.
+        your space on AR-enabled devices.
       </p>
       <br></br>
       <p className="read-the-docs">
         Knit + Code is an interdisciplinary design collaboration made possible
-        by the Pratt Institute School of Design. It was designed and fabricated
-        in Brooklyn, NY for Pratt Shows 2023: Design by a team of Pratt faculty
-        and students.
+        by the{" "}
+        <a href="https://www.pratt.edu/design/" target="_blank">
+          Pratt Institute School of Design.
+        </a>{" "}
+        It was designed and fabricated in Brooklyn, NY for{" "}
+        <a
+          href="https://www.pratt.edu/events/pratt-shows-design/"
+          target="_blank"
+        >
+          Pratt Shows 2023: Design
+        </a>{" "}
+        by a team of Pratt faculty and students.
       </p>
       <br></br>
       <h3>Design Team</h3>
       <div>
-        <p className="team-member">Hannah Berkin-Harper - Industrial Design</p>
-        <p className="team-member">Benjamin Howes - Interior Design</p>
-        <p className="team-member">Tracey Weisman - Knit Lab</p>
+        <p className="team-member">
+          <a href="https://www.hbh-design.com/" target="_blank">
+            Hannah Berkin-Harper
+          </a>
+          : Industrial Design
+        </p>
+        <p className="team-member">
+          <a href="https://www.howes.studio/" target="_blank">
+            Benjamin Howes
+          </a>
+          : Interior Design
+        </p>
+        <p className="team-member">
+          <a
+            href="https://issuu.com/traceyweisman/docs/tw_selectedworks"
+            target="_blank"
+          >
+            Tracey Weisman
+          </a>
+          : Knit Lab
+        </p>
       </div>
       <br></br>
       <h3>Fabrication Team</h3>
