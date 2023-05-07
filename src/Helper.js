@@ -7,7 +7,7 @@ import {
   //interpolateViridis,
   interpolateMagma,
 } from "d3-scale-chromatic";
-import wall from "./assets/wall.jpg";
+import wall from "./assets/ply.jpg";
 
 class Helper {
   constructor() {
