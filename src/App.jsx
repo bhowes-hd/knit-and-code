@@ -159,7 +159,7 @@ function App() {
         </a>
       </p>
       <p className="read-the-docs">
-        All rights reserved by the Design team and Pratt Institute
+        All rights reserved by the design team and Pratt Institute
       </p>
     </div>
   );

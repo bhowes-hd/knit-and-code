@@ -99,8 +99,8 @@ class Helper {
         //metalness: 0.5,
         side: THREE.DoubleSide,
         flatShading: false,
-        map: this.wallTexture,
-        bumpMap: this.wallTexture,
+        map: this.wallTexture ? this.wallTexture : null,
+        bumpMap: this.wallTexture ? this.wallTexture : null,
         bumpScale: 1.0,
       });
       mat.DoubleSide = true;
