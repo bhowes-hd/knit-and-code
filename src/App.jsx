@@ -84,7 +84,7 @@ function App() {
         >
           Pratt Shows 2023: Design
         </a>{" "}
-        by a team of Pratt faculty and students.
+        by a team of Pratt School of Design faculty and students.
       </p>
       <br></br>
       <h3>Design Team</h3>
@@ -114,11 +114,50 @@ function App() {
       <br></br>
       <h3>Fabrication Team</h3>
       <div>
-        <p>Daryl Shelton</p>
-        <p>Emma Winick</p>
-        <p>Joanne Wu</p>
+        <p>
+          <a
+            href="https://instagram.com/sb.esbee?igshid=NTc4MTIwNjQ2YQ=="
+            target="_blank"
+          >
+            Shayna Block
+          </a>
+          : Fashion Design
+        </p>
+        <p>
+          <a href="https://malekr.weebly.com/" target="_blank">
+            Malek Rasmussen
+          </a>
+          : Fashion Design
+        </p>
+        <p>
+          <a
+            href="https://instagram.com/drylshltndesign?igshid=NTc4MTIwNjQ2YQ=="
+            target="_blank"
+          >
+            Daryl Shelton
+          </a>
+          : Industrial Design
+        </p>
+        <p>
+          <a href="https://www.emmawinickdesign.com/" target="_blank">
+            Emma Winick
+          </a>
+          : Industrial Design
+        </p>
+        <p>
+          <a href="https://www.designjlw.com/" target="_blank">
+            Joanne Wu
+          </a>
+          : Industrial Design
+        </p>
       </div>
       <br></br>
+      <p className="read-the-docs">
+        This website is open source software. Check out our{" "}
+        <a href="https://github.com/bhowes-hd/knit-and-code" target="_blank">
+          Github repository here
+        </a>
+      </p>
       <p className="read-the-docs">
         All rights reserved by the Design team and Pratt Institute
       </p>
