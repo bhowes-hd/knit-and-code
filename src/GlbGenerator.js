@@ -32,7 +32,7 @@ class GlbGenerator {
     let radius = Math.round(help.map(Math.random(), 0, 1, 3.8, 4.5)); //how far along the enneper radius (how big, how much curvature)
 
     //scale up for AR in show mode vs testing at home mode
-    const arScale = 4.4;
+    const arScale = 3.3;
 
     //enneper surface generation function
     function enneper(r, t, target) {
@@ -109,28 +109,25 @@ class GlbGenerator {
     }
 
     //loop over the positions in the buffer geometry and make curves
-    const arr = enn.attributes.position.array;
     for (let i = 0; i < points.length; i = i + (u + 1)) {
       //start point
       const startIndex = Math.round(i + (u + 1) * 0.2);
-      // console.log("i", i);
-      // console.log("start index", startIndex);
+      //console.log("i", i);
+      //console.log("start index", startIndex);
       const start = points[startIndex];
 
       //mid point
       let shift = midShifter * (v + 1);
       let midIndex = i + (u + 1) * 0.6;
       midIndex = Math.round(midIndex + shift);
-      // console.log("mid index", midIndex);
-      // console.log("mid index/3", midIndex / 3)
+      //console.log("mid index", midIndex);
 
       //if the shifted value is less than 0 or greater than the array length, wrap it
       const mid = help.wrapArrayIndex(points, midIndex);
 
       //end point
       const endIndex = i + u;
-      // console.log("endIndex", endIndex);
-      // console.log("endIndex/3", endIndex / 3);
+      //console.log("endIndex", endIndex);
       const end = points[endIndex];
 
       //pipes
