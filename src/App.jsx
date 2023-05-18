@@ -18,7 +18,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>KNIT + CODE</h1>
+      <h2>KNIT + CODE</h2>
       <p className="read-the-docs">Augmentented Reality App</p>
       <div>
         <model-viewer
